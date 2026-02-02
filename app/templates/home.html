@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog - Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .article-list { list-style: none; padding: 0; }
+        .article-item { margin-bottom: 1.5em; }
+        .article-title { font-size: 1.2em; font-weight: bold; }
+        .article-date { color: #888; font-size: 0.9em; }
+        .admin-link { float: right; }
+    </style>
+</head>
+<body>
+    <h1>My Blog</h1>
+    <a href="/admin/login" class="admin-link">Admin Login</a>
+    <hr>
+    {% if articles %}
+        <ul class="article-list">
+            {% for article in articles %}
+                <li class="article-item">
+                    <a class="article-title" href="/articles/{{ article.id }}">{{ article.title }}</a>
+                    <div class="article-date">Published: {{ article.date }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles have been published yet.</p>
+    {% endif %}
+</body>
+</html>

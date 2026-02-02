@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - My Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        h1 { margin-bottom: 1em; }
+        .add-link { margin-bottom: 1.5em; display: inline-block; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        th, td { padding: 0.7em 1em; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background: #f5f5f5; }
+        .actions { white-space: nowrap; }
+        .logout-link { float: right; }
+        form { display: inline; }
+        button { background: none; border: none; color: #c00; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <a href="/admin/articles/add" class="add-link">+ Add New Article</a>
+    <a href="/admin/login" class="logout-link">Logout</a>
+    <hr>
+    {% if articles %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{ article.date }}</td>
+                <td class="actions">
+                    <a href="/admin/articles/{{ article.id }}/edit">Edit</a>
+                    <form method="post" action="/admin/articles/{{ article.id }}/delete" onsubmit="return confirm('Delete this article?');">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+    <a href="/" class="back-link">&larr; Back to Home</a>
+</body>
+</html>
