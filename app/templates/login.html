@@ -14,11 +14,19 @@
 </head>
 <body>
     <h1>Admin Login</h1>
-    <form method="post" action="/admin/login">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
+    {% if password_set %}
+        <form method="post" action="/admin/login">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    {% else %}
+        <form method="post" action="/admin/login">
+            <label for="new_password">Set new password:</label>
+            <input type="password" id="new_password" name="password" required>
+            <button type="submit">Set password</button>
+        </form>
+    {% endif %}
     <a href="/" class="back-link">&larr; Back to Home</a>
 </body>
 </html>

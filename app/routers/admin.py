@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from ..dependencies import admin_auth
 from ..services.articles_services import get_articles, get_article_by_id, add_article, update_article, delete_article
-
+from ..services.admin_services import is_password_set, set_password, validate_password
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
@@ -47,12 +47,21 @@ def delete_article_handler(article_id: str):
 
 @router.get("/admin/login", response_class=HTMLResponse)
 def login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request, "password_set": is_password_set()})
 
 
 @router.post("/admin/login")
 def login(request: Request, password: str = Form(...)):
-    if password == "adminpass":
+    if not is_password_set():
+        # Set new password
+        if not password:
+            return RedirectResponse(url="/admin/login", status_code=303)
+        set_password(password)
+        response = RedirectResponse(url="/admin/articles", status_code=303)
+        response.set_cookie(key="admin_key", value="secret")
+        return response
+    # Validate password
+    if validate_password(password):
         response = RedirectResponse(url="/admin/articles", status_code=303)
         response.set_cookie(key="admin_key", value="secret")
         return response
