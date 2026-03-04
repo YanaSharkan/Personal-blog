@@ -14,7 +14,12 @@
 <body>
     <a href="/" class="back-link">&larr; Back to Home</a>
     <div class="article-title">{{ article.title }}</div>
-    <div class="article-date">Published: {{ article.date }}</div>
+    <div class="article-date">
+        Created: {{ article.created_at }}
+        {% if article.updated_at %}
+            <br>Last edited: {{ article.updated_at }}
+        {% endif %}
+    </div>
     <div class="article-content">
         {{ article.content }}
     </div>

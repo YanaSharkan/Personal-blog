@@ -20,8 +20,8 @@ def add_article_page(request: Request):
 
 
 @router.post("/admin/articles", dependencies=[Depends(admin_auth)])
-def add_article_handler(title: str = Form(...), content: str = Form(...), date: str = Form(...)):
-    add_article(title, content, date)
+def add_article_handler(title: str = Form(...), content: str = Form(...)):
+    add_article(title, content)
     return RedirectResponse(url="/admin/articles", status_code=303)
 
 
@@ -34,8 +34,8 @@ def edit_article_page(request: Request, article_id: str):
 
 
 @router.post("/admin/articles/{article_id}/edit", dependencies=[Depends(admin_auth)])
-def edit_article_handler(article_id: str, title: str = Form(...), content: str = Form(...), date: str = Form(...)):
-    update_article(article_id, title, content, date)
+def edit_article_handler(article_id: str, title: str = Form(...), content: str = Form(...)):
+    update_article(article_id, title, content)
     return RedirectResponse(url="/admin/articles", status_code=303)
 
 

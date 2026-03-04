@@ -1,6 +1,7 @@
 import json
 import os
 from uuid import uuid4
+from datetime import datetime
 
 DB_PATH = os.path.join(os.path.dirname(__file__), '..', 'core', 'db.json')
 
@@ -24,26 +25,26 @@ def get_article_by_id(article_id):
     return next((a for a in articles if a['id'] == article_id), None)
 
 
-def add_article(title, content, date):
+def add_article(title, content, _date=None):
     articles = _load_articles()
     new_article = {
         'id': str(uuid4()),
         'title': title,
         'content': content,
-        'date': date
+        'created_at': datetime.now().strftime("%Y-%m-%d %H:%M")
     }
     articles.append(new_article)
     _save_articles(articles)
     return new_article
 
 
-def update_article(article_id, title, content, date):
+def update_article(article_id, title, content):
     articles = _load_articles()
     for article in articles:
         if article['id'] == article_id:
             article['title'] = title
             article['content'] = content
-            article['date'] = date
+            article['updated_at'] = datetime.now().strftime("%Y-%m-%d %H:%M")
             break
     _save_articles(articles)
 

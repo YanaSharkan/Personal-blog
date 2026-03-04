@@ -21,7 +21,13 @@
             {% for article in articles %}
                 <li class="article-item">
                     <a class="article-title" href="/articles/{{ article.id }}">{{ article.title }}</a>
-                    <div class="article-date">Published: {{ article.date }}</div>
+<!--                    <div class="article-date">Published: {{ article.created_at }}</div>-->
+                    <div class="article-date">
+                        Created: {{ article.created_at }}
+                        {% if article.updated_at %}
+                            <br>Last edited: {{ article.updated_at }}
+                        {% endif %}
+                    </div>
                 </li>
             {% endfor %}
         </ul>

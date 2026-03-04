@@ -34,7 +34,8 @@
             {% for article in articles %}
             <tr>
                 <td>{{ article.title }}</td>
-                <td>{{ article.date }}</td>
+                <td>{{ article.created_at }}</td>
+                <td>{{ article.updated_at }}</td>
                 <td class="actions">
                     <a href="/admin/articles/{{ article.id }}/edit">Edit</a>
                     <form method="post" action="/admin/articles/{{ article.id }}/delete" onsubmit="return confirm('Delete this article?');">

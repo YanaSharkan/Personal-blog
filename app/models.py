@@ -12,16 +12,18 @@ class Article(BaseModel):
     id: str
     title: str
     content: str
-    date: str
+    created_at: str
+    updated_at: Optional[str] = None
 
 
 class ArticleCreate(BaseModel):
     title: str
     content: str
-    date: str
+    created_at: str
+    updated_at: Optional[str] = None
 
 
 class ArticleUpdate(BaseModel):
     title: Optional[str] = None
     content: Optional[str] = None
-    date: Optional[str] = None
+    updated_at: Optional[str] = None
