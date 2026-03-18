@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Depends, Form, HTTPException
+from fastapi import APIRouter, Request, Depends, Form, HTTPException, Query
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from ..dependencies import admin_auth
@@ -10,8 +10,28 @@ templates = Jinja2Templates(directory="app/templates")
 
 
 @router.get("/admin/articles", response_class=HTMLResponse, dependencies=[Depends(admin_auth)])
-def admin_dashboard(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request, "articles": get_articles()})
+def admin_dashboard(
+        request: Request,
+        page: int = Query(1, ge=1),
+        size: int = Query(5, ge=1, le=100)
+):
+    articles = get_articles()
+    total = len(articles)
+    start = (page - 1) * size
+    end = start + size
+    paginated_articles = articles[start:end]
+    total_pages = (total + size - 1) // size
+    return templates.TemplateResponse(
+        "dashboard.html",
+        {
+            "request": request,
+            "articles": paginated_articles,
+            "page": page,
+            "size": size,
+            "total": total,
+            "total_pages": total_pages,
+        }
+    )
 
 
 @router.get("/admin/articles/add", response_class=HTMLResponse, dependencies=[Depends(admin_auth)])
