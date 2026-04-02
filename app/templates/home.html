@@ -4,12 +4,56 @@
     <meta charset="UTF-8">
     <title>My Blog - Home</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        .article-list { list-style: none; padding: 0; }
-        .article-item { margin-bottom: 1.5em; }
-        .article-title { font-size: 1.2em; font-weight: bold; }
-        .article-date { color: #888; font-size: 0.9em; }
-        .admin-link { float: right; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2em;
+        }
+        .article-list {
+            list-style: none;
+            padding: 0;
+        }
+        .article-item {
+            margin-bottom: 1.5em;
+        }
+        .article-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .article-date {
+            color: #888;
+            font-size: 0.9em;
+        }
+        .admin-link {
+            float: right;
+        }
+        .pagination {
+            margin: 2em 0 1em 0;
+            text-align: center;
+        }
+        .pagination a, .pagination strong {
+            display: inline-block;
+            margin: 0 0.2em;
+            padding: 0.4em 0.9em;
+            text-decoration: none;
+            color: #0074d9;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pagination a:hover {
+            background: #0074d9;
+            color: #fff;
+            border-color: #0074d9;
+        }
+        .pagination strong {
+            background: #0074d9;
+            color: #fff;
+            border-color: #0074d9;
+            font-weight: bold;
+            cursor: default;
+        }
     </style>
 </head>
 <body>
