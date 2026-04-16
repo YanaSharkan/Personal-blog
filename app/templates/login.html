@@ -1,32 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Login - My Blog</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        form { max-width: 350px; margin: 0 auto; }
-        label { display: block; margin-top: 1em; }
-        input[type="password"] { width: 100%; padding: 0.5em; margin-top: 0.2em; }
-        button { margin-top: 1.5em; padding: 0.7em 1.5em; }
-        .back-link { margin-top: 2em; display: inline-block; }
-    </style>
-</head>
-<body>
-    <h1>Admin Login</h1>
-    {% if password_set %}
-        <form method="post" action="/admin/login">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Login</button>
-        </form>
-    {% else %}
-        <form method="post" action="/admin/login">
-            <label for="new_password">Set new password:</label>
-            <input type="password" id="new_password" name="password" required>
-            <button type="submit">Set password</button>
-        </form>
-    {% endif %}
-    <a href="/" class="back-link">&larr; Back to Home</a>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Admin Login - My Blog{% endblock %}
+{% block extra_style %}
+body {
+    font-family: Arial, sans-serif;
+    margin: 2em;
+}
+form {
+    max-width: 350px;
+    margin: 0 auto;
+}
+label {
+    display: block;
+    margin-top: 1em;
+}
+input[type="password"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.2em;
+}
+button {
+    margin-top: 1.5em;
+    padding: 0.7em 1.5em;
+}
+.back-link {
+    margin-top: 2em;
+    display: inline-block;
+}
+{% endblock %}
+{% block content %}
+<h1>Admin Login</h1>
+{% if password_set %}
+    <form method="post" action="/admin/login">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+{% else %}
+    <form method="post" action="/admin/login">
+        <label for="new_password">Set new password:</label>
+        <input type="password" id="new_password" name="password" required>
+        <button type="submit">Set password</button>
+    </form>
+{% endif %}
+<a href="/" class="back-link">&larr; Back to Home</a>
+{% endblock %}

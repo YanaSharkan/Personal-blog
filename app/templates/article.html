@@ -1,27 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ article.title }} - My Blog</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        .back-link { margin-bottom: 1em; display: inline-block; }
-        .article-title { font-size: 2em; font-weight: bold; margin-bottom: 0.2em; }
-        .article-date { color: #888; font-size: 0.95em; margin-bottom: 1.5em; }
-        .article-content { font-size: 1.1em; line-height: 1.6; }
-    </style>
-</head>
-<body>
-    <a href="/" class="back-link">&larr; Back to Home</a>
-    <div class="article-title">{{ article.title }}</div>
-    <div class="article-date">
-        Created: {{ article.created_at }}
-        {% if article.updated_at %}
-            <br>Last edited: {{ article.updated_at }}
-        {% endif %}
-    </div>
-    <div class="article-content">
-        {{ article.content }}
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title%}{{ article.title }} - My Blog{% endblock %}
+{% block extra_style %}
+.back-link {
+    margin-bottom: 1em;
+    display: inline-block;
+}
+.article-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.2em;
+}
+.article-date {
+    color: #888;
+    font-size: 0.95em;
+    margin-bottom: 1.5em;
+}
+.article-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+{% endblock %}
+{% block content%}
+<a href="/" class="back-link">&larr; Back to Home</a>
+<div class="article-title">{{ article.title }}</div>
+<div class="article-date">
+Created: {{ article.created_at }}
+{% if article.updated_at %}
+    <br>Last edited: {{ article.updated_at }}
+{% endif %}
+</div>
+<div class="article-content">
+{{ article.content }}
+</div>
+{% endblock %}

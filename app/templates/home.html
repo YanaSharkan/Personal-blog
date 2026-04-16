@@ -1,99 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Blog - Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2em;
-        }
-        .article-list {
-            list-style: none;
-            padding: 0;
-        }
-        .article-item {
-            margin-bottom: 1.5em;
-        }
-        .article-title {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .article-date {
-            color: #888;
-            font-size: 0.9em;
-        }
-        .admin-link {
-            float: right;
-        }
-        .pagination {
-            margin: 2em 0 1em 0;
-            text-align: center;
-        }
-        .pagination a, .pagination strong {
-            display: inline-block;
-            margin: 0 0.2em;
-            padding: 0.4em 0.9em;
-            text-decoration: none;
-            color: #0074d9;
-            background: #f4f4f4;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background 0.2s, color 0.2s;
-        }
-        .pagination a:hover {
-            background: #0074d9;
-            color: #fff;
-            border-color: #0074d9;
-        }
-        .pagination strong {
-            background: #0074d9;
-            color: #fff;
-            border-color: #0074d9;
-            font-weight: bold;
-            cursor: default;
-        }
-    </style>
-</head>
-<body>
-    <h1>My Blog</h1>
-    <a href="/admin/login" class="admin-link">Admin Login</a>
-    <hr>
-    {% if articles %}
-        <ul class="article-list">
-            {% for article in articles %}
-                <li class="article-item">
-                    <a class="article-title" href="/articles/{{ article.id }}">{{ article.title }}</a>
-<!--                    <div class="article-date">Published: {{ article.created_at }}</div>-->
-                    <div class="article-date">
-                        Created: {{ article.created_at }}
-                        {% if article.updated_at %}
-                            <br>Last edited: {{ article.updated_at }}
-                        {% endif %}
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        {% if total_pages > 1 %}
-        <div class="pagination">
-            {% if page > 1 %}
-                <a href="?page={{ page - 1 }}&size={{ size }}">Previous</a>
+{% extends "base.html" %}
+
+{% block title %}My Blog - Home{% endblock %}
+
+{% block extra_style %}
+.article-list {
+    list-style: none;
+    padding: 0;
+}
+.article-item {
+    margin-bottom: 1.5em;
+}
+.article-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.article-date {
+    color: #888;
+    font-size: 0.9em;
+}
+.admin-link {
+    float: right;
+}
+{% endblock %}
+
+{% block content %}
+<h1>My Blog</h1>
+<a href="/admin/login" class="admin-link">Admin Login</a>
+<hr>
+{% if articles %}
+    <ul class="article-list">
+        {% for article in articles %}
+            <li class="article-item">
+                <a class="article-title" href="/articles/{{ article.id }}">{{ article.title }}</a>
+                <div class="article-date">
+                    Created: {{ article.created_at }}
+                    {% if article.updated_at %}
+                        <br>Last edited: {{ article.updated_at }}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="?page={{ page - 1 }}&size={{ size }}">Previous</a>
+        {% endif %}
+        {% for p in range(1, total_pages + 1) %}
+            {% if p == page %}
+                <strong>{{ p }}</strong>
+            {% else %}
+                <a href="?page={{ p }}&size={{ size }}">{{ p }}</a>
             {% endif %}
-            {% for p in range(1, total_pages + 1) %}
-                {% if p == page %}
-                    <strong>{{ p }}</strong>
-                {% else %}
-                    <a href="?page={{ p }}&size={{ size }}">{{ p }}</a>
-                {% endif %}
-            {% endfor %}
-            {% if page < total_pages %}
-                <a href="?page={{ page + 1 }}&size={{ size }}">Next</a>
-            {% endif %}
+        {% endfor %}
+        {% if page < total_pages %}
+            <a href="?page={{ page + 1 }}&size={{ size }}">Next</a>
+        {% endif %}
     </div>
     {% endif %}
-    {% else %}
-        <p>No articles have been published yet.</p>
-    {% endif %}
-</body>
-</html>
+{% else %}
+    <p>No articles have been published yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,40 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add New Article - Admin</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        form { max-width: 600px; }
-        label { display: block; margin-top: 1em; }
-        input[type="text"] {
-            width: 100%;
-            padding: 0.5em;
-            margin-top: 0.2em;
-            font-size: 1.2em;
-        }
-        textarea {
-            width: 100%;
-            padding: 0.5em;
-            margin-top: 0.2em;
-            min-height: 150px;
-            font-size: 1.1em;
-        }
-        button { margin-top: 1.5em; padding: 0.7em 1.5em; }
-        .back-link { margin-top: 2em; display: inline-block; }
-    </style>
-</head>
-<body>
-    <h1>Add New Article</h1>
-    <form method="post" action="/admin/articles">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
+{% extends "base.html" %}
+{% block title %}Add New Article - Admin{% endblock %}
+{% block extra_style %}
+form {
+    max-width: 600px;
+}
+label {
+    display: block;
+    margin-top: 1em;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.2em;
+    font-size: 1.2em;
+}
+textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.2em;
+    min-height: 150px;
+    font-size: 1.1em;
+}
+button {
+    margin-top: 1.5em;
+    padding: 0.7em 1.5em;
+}
+.back-link {
+    margin-top: 2em;
+    display: inline-block;
+}
+{% endblock %}
+{% block content %}
+<h1>Add New Article</h1>
+<form method="post" action="/admin/articles">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
 
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" required></textarea>
+    <label for="content">Content:</label>
+    <textarea id="content" name="content" required></textarea>
 
-        <button type="submit">Publish Article</button>
-    </form>
-    <a href="/admin/articles" class="back-link">&larr; Back to Dashboard</a>
-</body>
-</html>
+    <button type="submit">Publish Article</button>
+</form>
+<a href="/admin/articles" class="back-link">&larr; Back to Dashboard</a>
+{% endblock %}

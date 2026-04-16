@@ -1,45 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Article - Admin</title>
-    <style>
-        body {
-            font-family: Arial,
-            sans-serif;
-            margin: 2em;
-        }
-        form {
-            max-width: 600px;
-        }
-        label {
-            display: block;
-            margin-top: 1em;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 0.5em;
-            margin-top: 0.2em;
-            font-size: 1.2em;
-        }
-        textarea {
-            width: 100%;
-            padding: 0.5em;
-            margin-top: 0.2em;
-            min-height: 150px;
-            font-size: 1.1em;
-        }
-        button {
-            margin-top: 1.5em;
-            padding: 0.7em 1.5em;
-        }
-        .back-link {
-            margin-top: 2em;
-            display: inline-block;
-        }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Edit Article - Admin{% endblock %}
+{% block extra_style %}
+form {
+    max-width: 600px;
+}
+label {
+    display: block;
+    margin-top: 1em;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.2em;
+    font-size: 1.2em;
+}
+textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.2em;
+    min-height: 150px;
+    font-size: 1.1em;
+}
+button {
+    margin-top: 1.5em;
+    padding: 0.7em 1.5em;
+}
+.back-link {
+    margin-top: 2em;
+    display: inline-block;
+}
+
+{% endblock %}
+{% block content %}
     <h1>Edit Article</h1>
     <form method="post" action="/admin/articles/{{ article.id }}/edit">
         <label for="title">Title:</label>
@@ -52,5 +44,4 @@
         <button type="submit">Save Changes</button>
     </form>
     <a href="/admin/articles" class="back-link">&larr; Back to Dashboard</a>
-</body>
-</html>
+{% endblock %}

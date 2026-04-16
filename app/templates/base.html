@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        nav {
+            background: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            padding: 0.7em 1em;
+            margin-bottom: 2em;
+        }
+        .navbar-link {
+            display: inline-block;
+            margin-right: 1em;
+            padding: 0.4em 0.9em;
+            text-decoration: none;
+            color: #0074d9;
+            background: #e9e9e9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar-link:hover {
+            background: #0074d9;
+            color: #fff;
+            border-color: #0074d9;
+        }
+        .add-link, .logout-link, .back-link, .button-link, .admin-link {
+            display: inline-block;
+            margin: 0 0.2em 1.5em 0;
+            padding: 0.4em 0.9em;
+            text-decoration: none;
+            color: #0074d9;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+        }
+        .add-link:hover, .logout-link:hover, .back-link:hover, .button-link:hover, .admin-link:hover {
+            background: #0074d9;
+            color: #fff;
+            border-color: #0074d9;
+        }
+        .pagination {
+            margin: 2em 0 1em 0;
+            text-align: center;
+        }
+        .pagination a, .pagination strong {
+            display: inline-block;
+            margin: 0 0.2em;
+            padding: 0.4em 0.9em;
+            text-decoration: none;
+            color: #0074d9;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pagination a:hover {
+            background: #0074d9;
+            color: #fff;
+            border-color: #0074d9;
+        }
+        .pagination strong {
+            background: #0074d9;
+            color: #fff;
+            border-color: #0074d9;
+            font-weight: bold;
+            cursor: default;
+        }
+        {% block extra_style %}{% endblock %}
+    </style>
+</head>
+<body>
+
+    {% block content %}{% endblock %}
+</body>
+</html>
