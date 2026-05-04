@@ -38,7 +38,7 @@ button {
 {% endblock %}
 {% block content %}
 <h1>Admin Dashboard</h1>
-<a href="/admin/articles/add" class="add-link">+ Add New Article</a>
+<a href="/admin/articles/add?page={{page}}&size={{size}}" class="add-link">+ Add New Article</a>
 <a href="/admin/login" class="logout-link">Logout</a>
 <hr>
 {% if articles %}
@@ -58,7 +58,7 @@ button {
             <td>{{ article.created_at }}</td>
             <td>{{ article.updated_at }}</td>
             <td class="actions">
-                <a href="/admin/articles/{{ article.id }}/edit">Edit</a>
+                <a href="/admin/articles/{{ article.id }}/edit?page={{page}}&size={{size}}">Edit</a>
                 <form method="post" action="/admin/articles/{{ article.id }}/delete" onsubmit="return confirm('Delete this article?');">
                     <button type="submit">Delete</button>
                 </form>

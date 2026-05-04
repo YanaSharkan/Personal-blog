@@ -33,7 +33,7 @@ def add_article(title, content, _date=None):
         'content': content,
         'created_at': datetime.now().strftime("%Y-%m-%d %H:%M")
     }
-    articles.append(new_article)
+    articles.insert(0, new_article)
     _save_articles(articles)
     return new_article
 

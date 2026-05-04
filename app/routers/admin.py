@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from ..dependencies import admin_auth
 from ..services.articles_services import get_articles, get_article_by_id, add_article, update_article, delete_article
-from ..services.admin_services import is_password_set, set_password, validate_password
+from ..services.admin_services import is_password_set, set_password, validate_password, change_password
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
@@ -40,23 +40,36 @@ def add_article_page(request: Request):
 
 
 @router.post("/admin/articles", dependencies=[Depends(admin_auth)])
-def add_article_handler(title: str = Form(...), content: str = Form(...)):
+def add_article_handler(
+        request: Request,
+        title: str = Form(...),
+        content: str = Form(...)
+):
     add_article(title, content)
     return RedirectResponse(url="/admin/articles", status_code=303)
 
 
 @router.get("/admin/articles/{article_id}/edit", response_class=HTMLResponse, dependencies=[Depends(admin_auth)])
-def edit_article_page(request: Request, article_id: str):
+def edit_article_page(request: Request, article_id: str, page: int = Query(1), size: int = Query(5)):
     article = get_article_by_id(article_id)
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
-    return templates.TemplateResponse("edit_article.html", {"request": request, "article": article})
+    return templates.TemplateResponse("edit_article.html", {"request": request,
+                                                            "article": article,
+                                                            "page": page,
+                                                            "size": size})
 
 
 @router.post("/admin/articles/{article_id}/edit", dependencies=[Depends(admin_auth)])
-def edit_article_handler(article_id: str, title: str = Form(...), content: str = Form(...)):
+def edit_article_handler(
+        article_id: str,
+        title: str = Form(...),
+        content: str = Form(...),
+        page: int = Form(...),
+        size: int = Form(...)
+):
     update_article(article_id, title, content)
-    return RedirectResponse(url="/admin/articles", status_code=303)
+    return RedirectResponse(url=f"/admin/articles?page={page}&size={size}", status_code=303)
 
 
 @router.post("/admin/articles/{article_id}/delete", dependencies=[Depends(admin_auth)])
@@ -93,3 +106,20 @@ def logout():
     response = RedirectResponse(url="/admin/login", status_code=303)
     response.delete_cookie("admin_key")
     return response
+
+
+@router.get("/admin/password", response_class=HTMLResponse, dependencies=[Depends(admin_auth)])
+def change_password_page(request: Request):
+    return templates.TemplateResponse("change_password.html", {"request": request, "error": None})
+
+
+@router.post("/admin/password", dependencies=[Depends(admin_auth)])
+def change_password_handler(
+        request: Request,
+        old_password: str = Form(...),
+        new_password: str = Form(...)
+):
+    if not change_password(old_password, new_password):
+        return RedirectResponse(url="/admin/articles", status_code=303)
+    return templates.TemplateResponse("change_password.html", {"request": request,
+                                                               "error": "Incorrect current password"})

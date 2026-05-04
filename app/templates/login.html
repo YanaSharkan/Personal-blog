@@ -26,6 +26,10 @@ button {
     margin-top: 2em;
     display: inline-block;
 }
+.change-password-link {
+    margin-top: 1em;
+    display: inline-block;
+}
 {% endblock %}
 {% block content %}
 <h1>Admin Login</h1>
@@ -43,4 +47,5 @@ button {
     </form>
 {% endif %}
 <a href="/" class="back-link">&larr; Back to Home</a>
+<a href="/admin/password" class="change-password-link">Change password</a>
 {% endblock %}
